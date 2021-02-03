@@ -1,14 +1,41 @@
-import React, { Component } from 'react';
-import Layout from './conpoments/Layout/Layout';
+import React from 'react';
+import { Switch, NavLink, Route, Redirect } from 'react-router-dom';
+//import Layout from './conponents/Layout/Layout';
+import HomePage from './pages/HomePage';
+import MoviesPage from './pages/MoviesPage';
+import MovieDetailsPage from './pages/MovieDetailsPage';
 
-export default class App extends Component {
-  static propTypes = {};
+const App = () => (
+  <>
+    <ul className="Site-nav-list">
+      <li className="NavLink-item">
+        <NavLink
+          exact
+          to="/"
+          className="NavLink"
+          activeClassName="NavLink--active"
+        >
+          Home
+        </NavLink>
+      </li>
+      <li className="NavLink-item">
+        <NavLink
+          to="/movies"
+          className="NavLink"
+          activeClassName="NavLink--active"
+        >
+          Movies
+        </NavLink>
+      </li>
+    </ul>
 
-  static defaultProps = {};
+    <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route path="/movies" component={MoviesPage} />
+      <Route path="/movies/:movieId" component={MovieDetailsPage} />
+      <Redirect to="/" />
+    </Switch>
+  </>
+);
 
-  state = {};
-
-  render() {
-    return <Layout></Layout>;
-  }
-}
+export default App;
