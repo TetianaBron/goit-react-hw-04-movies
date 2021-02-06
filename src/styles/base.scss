@@ -12,9 +12,13 @@ body {
   list-style: none;
 }
 
-ul {
+ul,
+h1,
+h2,
+p {
   list-style: none;
   margin: 0;
+  padding: 0;
 }
 
 img {
@@ -39,6 +43,10 @@ img {
 
 .NavLink-item:not(:last-child) {
   margin-right: 15px;
+}
+
+.NavLink-item:first-child {
+  margin-left: 40px;
 }
 
 .NavLink--active {

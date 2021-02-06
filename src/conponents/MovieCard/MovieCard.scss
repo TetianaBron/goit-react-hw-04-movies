@@ -1,0 +1,21 @@
+.Card {
+  @media screen and (min-width: 1000px) {
+    display: flex;
+  }
+}
+
+.CardInfo {
+  margin-left: 20px;
+}
+
+.Bold {
+  font-weight: bold;
+}
+
+.Genres {
+  display: flex;
+}
+
+.GenresItem:not(:last-child) {
+  margin-right: 5px;
+}

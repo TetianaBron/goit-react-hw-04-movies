@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, NavLink, Route, Redirect } from 'react-router-dom';
-//import Layout from './conponents/Layout/Layout';
 import HomePage from './pages/HomePage';
 import MoviesPage from './pages/MoviesPage';
 import MovieDetailsPage from './pages/MovieDetailsPage';
@@ -31,8 +30,8 @@ const App = () => (
 
     <Switch>
       <Route exact path="/" component={HomePage} />
-      <Route path="/movies" component={MoviesPage} />
       <Route path="/movies/:movieId" component={MovieDetailsPage} />
+      <Route path="/movies" component={MoviesPage} />
       <Redirect to="/" />
     </Switch>
   </>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,9 +38,9 @@ export default class MoviePage extends Component {
       toast('Введите что-то.');
       return;
     }
-
+    const KEY = '88cc215d69ec27c443b0ab6deb7f5acb';
     fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=88cc215d69ec27c443b0ab6deb7f5acb&language=en-US&query=${this.state.query}&page=1&include_adult=false`,
+      `https://api.themoviedb.org/3/search/movie?api_key=${KEY}&language=en-US&query=${this.state.query}&page=1&include_adult=false`,
     )
       .then(res => res.json())
       .then(res => this.setState({ movies: res.results }))
@@ -67,8 +68,11 @@ export default class MoviePage extends Component {
           value={query}
         />
         <ul>
-          {loading && <h1>Loading...</h1>}
-          {movies && movies.map(({ id, title }) => <li key={id}>{title}</li>)}
+          {movies.map(({ id, title }) => (
+            <li key={id}>
+              <Link to={`${this.props.match.url}/${id}`}>{title}</Link>
+            </li>
+          ))}
         </ul>
         <ToastContainer />
       </>
