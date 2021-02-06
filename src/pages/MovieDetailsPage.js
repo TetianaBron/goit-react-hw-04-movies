@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import MovieCard from '../conponents/MovieCard/MovieCard';
+import AdditionalInfoToCard from '../conponents/AdditionalInfoToCard/AdditionalInfoToCard';
 // import { Route } from 'react-router-dom';
 // import Cast from './Cast';
 // import Reviews from './Reviews';
@@ -22,7 +23,6 @@ export default class MovieDetailsPage extends Component {
     const response = await Axios.get(
       `https://api.themoviedb.org/3/movie/${movieId}?api_key=${KEY}&language=en-US`,
     );
-    console.log(response.data);
 
     this.setState({ ...response.data });
   }
@@ -36,15 +36,23 @@ export default class MovieDetailsPage extends Component {
       title,
       vote_average,
     } = this.state;
+
     return (
-      <MovieCard
-        backdrop_path={backdrop_path}
-        genres={genres}
-        overview={overview}
-        release_date={release_date}
-        title={title}
-        vote_average={vote_average}
-      />
+      <>
+        <MovieCard
+          backdrop_path={backdrop_path}
+          genres={genres}
+          overview={overview}
+          release_date={release_date}
+          title={title}
+          vote_average={vote_average}
+        />
+        <AdditionalInfoToCard
+          movieId={this.props.match.params.movieId}
+          path={this.props.match.path}
+          url={this.props.match.url}
+        />
+      </>
       // <>
       //   <Route path="/movies/:movieId/cast" component={Cast} />
       //   <Route path="/movies/:movieId/reviews" component={Reviews} />

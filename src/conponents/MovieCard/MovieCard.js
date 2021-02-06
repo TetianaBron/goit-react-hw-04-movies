@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import Layout from '../Layout/Layout';
 import './MovieCard.scss';
 
@@ -22,24 +23,34 @@ const MovieCard = ({
 
         <div className="CardInfo">
           <h1>{title}</h1>
-          <p>
-            <span className="Bold">User Score:</span> {vote_average * 10}%
-          </p>
-          <p>
-            <span className="Bold">Release date:</span> {release_date}
-          </p>
-          <h2>Overview</h2>
-          <p>{overview}</p>
+          {vote_average > 0 && (
+            <p>
+              <span className="Title">User Score:</span> {vote_average * 10}%
+            </p>
+          )}
 
-          <h2>Genres</h2>
-          <ul className="Genres">
-            {genres &&
-              genres.map(({ id, name }) => (
-                <li key={id} className="GenresItem">
-                  {name}
-                </li>
-              ))}
-          </ul>
+          <p>
+            <span className="Title">Release date:</span> {release_date}
+          </p>
+          {overview && (
+            <>
+              <h2>Overview</h2>
+              <p>{overview}</p>
+            </>
+          )}
+
+          {genres && (
+            <>
+              <h2>Genres</h2>
+              <ul className="Genres">
+                {genres.map(({ id, name }) => (
+                  <li key={id} className="GenresItem">
+                    {name}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       </div>
     </Layout>

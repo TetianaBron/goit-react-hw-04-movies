@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Layout from '../conponents/Layout/Layout';
 // import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -61,7 +62,7 @@ export default class MoviePage extends Component {
     const { query, movies, loading } = this.state;
 
     return (
-      <>
+      <Layout>
         <SearchBar
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
@@ -75,7 +76,7 @@ export default class MoviePage extends Component {
           ))}
         </ul>
         <ToastContainer />
-      </>
+      </Layout>
     );
   }
 }
