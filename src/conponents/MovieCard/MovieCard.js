@@ -1,7 +1,8 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import Layout from '../Layout/Layout';
+import PropTypes from 'prop-types';
 import './MovieCard.scss';
+import { IMG_URL } from '../../services/themoviedb-api';
 
 const MovieCard = ({
   backdrop_path,
@@ -16,7 +17,11 @@ const MovieCard = ({
       <div className="Card">
         {backdrop_path && (
           <img
-            src={`https://image.tmdb.org/t/p/w500/${backdrop_path}`}
+            src={
+              backdrop_path
+                ? `${IMG_URL}/w500/${backdrop_path}`
+                : `${IMG_URL}/w500/wwemzKWzjKYJFfCeiB57q3r4Bcm.png`
+            }
             alt={title}
           />
         )}
@@ -55,6 +60,19 @@ const MovieCard = ({
       </div>
     </Layout>
   );
+};
+
+MovieCard.defaultProps = {
+  backdrop_path: 'wwemzKWzjKYJFfCeiB57q3r4Bcm.png',
+};
+
+MovieCard.propTypes = {
+  backdrop_path: PropTypes.string,
+  genres: PropTypes.array,
+  overview: PropTypes.string,
+  release_date: PropTypes.string,
+  title: PropTypes.string,
+  vote_average: PropTypes.number,
 };
 
 export default MovieCard;

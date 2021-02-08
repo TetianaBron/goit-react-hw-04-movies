@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Layout from '../conponents/Layout/Layout';
-// import PropTypes from 'prop-types';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SearchBar from '../conponents/SearchBar/SearchBar';
+import { BASE_URL, KEY } from '../services/themoviedb-api';
+import Loader from 'react-loader-spinner';
 
 export default class MoviePage extends Component {
   static propTypes = {};
@@ -15,65 +16,54 @@ export default class MoviePage extends Component {
     query: '',
     movies: [],
     loading: false,
-    error: null,
   };
 
-  // async  componentDidMount(prevProps) {
-  //   if (this.state.query) {
+  async componentDidUpdate(prevProps, prevState) {
+    const { query } = this.state;
+    if (prevState.query !== query) {
+      this.setState({ loading: true });
 
-  //     await this.setState({ loading: true });
-  //     this.setState({ movies: [] });
-  //     console.log(this.state.query);
-
-  //     fetch(`https://api.themoviedb.org/3/search/movie?api_key=88cc215d69ec27c443b0ab6deb7f5acb&language=en-US&query=${this.state.query}&page=1&include_adult=false`)
-  //       .then(res => res.json())
-  //       .then(res => this.setState({ movies: res.results }))
-  //       .finally(() => this.setState({ loading: false }));
-  //   }
-  // }
-
-  handleSubmit = e => {
-    e.preventDefault();
-
-    if (this.state.query.trim() === '') {
-      toast('Введите что-то.');
-      return;
+      fetch(
+        `${BASE_URL}/3/search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=false`,
+      )
+        .then(res => res.json())
+        .then(res => this.setState({ movies: res.results }))
+        .then(() => {
+          if (this.state.movies.length === 0) {
+            return toast.error('Ничего не найдено...');
+          }
+        })
+        .catch(error => toast.error(error.message))
+        .finally(() => this.setState({ loading: false }));
     }
-    const KEY = '88cc215d69ec27c443b0ab6deb7f5acb';
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?api_key=${KEY}&language=en-US&query=${this.state.query}&page=1&include_adult=false`,
-    )
-      .then(res => res.json())
-      .then(res => this.setState({ movies: res.results }))
-      .then(() => {
-        if (this.state.movies.length === 0) {
-          return toast.error('Ничего не найдено...');
-        }
-      })
-      .catch(error => toast.error(error.message))
-      .finally(() => this.setState({ loading: false, query: '' }));
-  };
+  }
 
-  handleChange = event => {
-    this.setState({ query: event.currentTarget.value.toLowerCase() });
+  handleFormSubmit = query => {
+    this.setState({ query });
   };
 
   render() {
-    const { query, movies, loading } = this.state;
+    const { movies, loading } = this.state;
 
     return (
       <Layout>
-        <SearchBar
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          value={query}
-        />
+        <SearchBar onSubmit={this.handleFormSubmit} />
+        {loading && (
+          <Loader
+            type="Hearts"
+            color="palevioletred"
+            height={260}
+            width={260}
+            timeout={3000}
+          />
+        )}
         <ul>
-          {movies.map(({ id, title }) => (
-            <li key={id}>
-              <Link to={`${this.props.match.url}/${id}`}>{title}</Link>
-            </li>
-          ))}
+          {movies &&
+            movies.map(({ id, title }) => (
+              <li key={id}>
+                <Link to={`${this.props.match.url}/${id}`}>{title}</Link>
+              </li>
+            ))}
         </ul>
         <ToastContainer />
       </Layout>

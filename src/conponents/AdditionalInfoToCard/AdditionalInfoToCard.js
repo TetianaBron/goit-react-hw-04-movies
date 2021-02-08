@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Layout from '../Layout/Layout';
-import Axios from 'axios';
 import './AdditionalInfoToCard.scss';
 import { Switch, NavLink, Route } from 'react-router-dom';
 import MovieCast from '../MovieCast/MovieCast';
@@ -24,8 +23,8 @@ const AdditionalInfoToCard = ({ path, url }) => {
       </div>
 
       <Switch>
-        {/* <Route path={`${path}/:castId`} component={MovieCast}  /> */}
-        <Route path={`${path}/:reviewId`} component={MovieReviews} />
+        <Route path={`${path}/cast`} component={MovieCast} />
+        <Route path={`${path}/reviews`} component={MovieReviews} />
       </Switch>
     </div>
   );

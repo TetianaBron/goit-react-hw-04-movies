@@ -5,7 +5,9 @@
 }
 
 .CardInfo {
-  margin-left: 20px;
+  @media screen and (min-width: 1000px) {
+    margin-left: 20px;
+  }
 }
 
 .Title {
