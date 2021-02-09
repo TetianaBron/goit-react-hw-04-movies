@@ -9,28 +9,28 @@ export default class Searchbar extends Component {
   };
 
   state = {
-    query: '',
+    value: '',
   };
 
-  handleQueryChange = event => {
-    this.setState({ query: event.currentTarget.value.toLowerCase() });
+  handleChange = event => {
+    this.setState({ value: event.currentTarget.value.toLowerCase() });
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    const { query } = this.state;
+    const { value } = this.state;
 
-    if (query.trim() === '') {
+    if (value.trim() === '') {
       toast('Введите что-то.');
       return;
     }
 
-    this.props.onSubmit(query);
-    this.setState({ query: '' });
+    this.props.onSubmit(value);
+    this.setState({ value: '' });
   };
 
   render() {
-    const { query } = this.state;
+    const { value } = this.state;
     return (
       <div className="Searchbar">
         <form onSubmit={this.handleSubmit} className="SearchForm">
@@ -38,8 +38,8 @@ export default class Searchbar extends Component {
             className="SearchFormInput"
             type="text"
             name="query"
-            value={query}
-            onChange={this.handleQueryChange}
+            value={value}
+            onChange={this.handleChange}
             autoComplete="off"
             autoFocus
           />

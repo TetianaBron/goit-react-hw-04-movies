@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Layout from '../conponents/Layout/Layout';
-import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { BASE_URL, KEY } from '../services/themoviedb-api';
 import Loader from 'react-loader-spinner';
+import MovieList from '../conponents/MovieList/MovieList';
 
 export default class MoviesPage extends Component {
   state = {
@@ -25,7 +24,7 @@ export default class MoviesPage extends Component {
     const { movies, loading } = this.state;
 
     return (
-      <Layout>
+      <div className="MainContainer">
         <h1>Trending today</h1>
         {loading && (
           <Loader
@@ -36,14 +35,9 @@ export default class MoviesPage extends Component {
             timeout={3000}
           />
         )}
-        <ul>
-          {movies.map(({ id, title }) => (
-            <li key={id}>
-              <Link to={`/movies/${id}`}>{title}</Link>
-            </li>
-          ))}
-        </ul>
-      </Layout>
+
+        <MovieList movies={movies} />
+      </div>
     );
   }
 }

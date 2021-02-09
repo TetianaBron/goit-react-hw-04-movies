@@ -1,11 +1,13 @@
 .Card {
-  @media screen and (min-width: 1000px) {
+  padding-top: 15px;
+
+  @media screen and (min-width: 1180px) {
     display: flex;
   }
 }
 
 .CardInfo {
-  @media screen and (min-width: 1000px) {
+  @media screen and (min-width: 1180px) {
     margin-left: 20px;
   }
 }

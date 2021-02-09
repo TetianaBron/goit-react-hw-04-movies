@@ -1,5 +1,5 @@
 .Searchbar {
-  margin: 24px 0px;
+  margin: 15px 0px;
 }
 
 .SearchForm {
@@ -10,10 +10,9 @@
 }
 
 .SearchFormButton {
-  margin-left: 12px;
   display: inline-block;
   font-size: 20px;
-  padding: 10px 20px;
+  padding: 10px 30px;
   cursor: pointer;
   outline: none;
   border-radius: 3px;
@@ -28,6 +27,7 @@
 
 .SearchFormInput {
   width: 100%;
+  margin-right: 12px;
   padding: 10px;
   outline: none;
   display: inline-block;

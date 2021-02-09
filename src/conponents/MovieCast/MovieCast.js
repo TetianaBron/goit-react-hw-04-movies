@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import Layout from '../Layout/Layout';
 import './MovieCast.scss';
+import Layout from '../Layout/Layout';
 import { KEY, BASE_URL, IMG_URL } from '../../services/themoviedb-api';
 
 export default class MovieCast extends Component {

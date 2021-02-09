@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from '../Layout/Layout';
 import PropTypes from 'prop-types';
 import './MovieCard.scss';
 import { IMG_URL } from '../../services/themoviedb-api';
@@ -13,7 +12,7 @@ const MovieCard = ({
   vote_average,
 }) => {
   return (
-    <Layout>
+    <>
       <div className="Card">
         {backdrop_path && (
           <img
@@ -44,7 +43,7 @@ const MovieCard = ({
             </>
           )}
 
-          {genres && (
+          {genres.length > 0 && (
             <>
               <h2>Genres</h2>
               <ul className="Genres">
@@ -58,7 +57,7 @@ const MovieCard = ({
           )}
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

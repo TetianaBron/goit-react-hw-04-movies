@@ -4,8 +4,9 @@ import './AdditionalInfoToCard.scss';
 import { Switch, NavLink, Route } from 'react-router-dom';
 import MovieCast from '../MovieCast/MovieCast';
 import MovieReviews from '../MovieReviews/MovieReviews';
+import routes from '../../routes';
 
-const AdditionalInfoToCard = ({ path, url }) => {
+const AdditionalInfoToCard = ({ path, url, from }) => {
   return (
     <div>
       <div className="Container">
@@ -13,18 +14,32 @@ const AdditionalInfoToCard = ({ path, url }) => {
           <p className="Title">Additional information</p>
           <ul>
             <li>
-              <NavLink to={`${url}/cast`}>Cast</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${url}${routes.cast}`,
+                  state: { from },
+                }}
+              >
+                Cast
+              </NavLink>
             </li>
             <li>
-              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${url}${routes.reviews}`,
+                  state: { from },
+                }}
+              >
+                Reviews
+              </NavLink>
             </li>
           </ul>
         </Layout>
       </div>
 
       <Switch>
-        <Route path={`${path}/cast`} component={MovieCast} />
-        <Route path={`${path}/reviews`} component={MovieReviews} />
+        <Route path={`${path}${routes.cast}`} component={MovieCast} />
+        <Route path={`${path}${routes.reviews}`} component={MovieReviews} />
       </Switch>
     </div>
   );
