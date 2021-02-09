@@ -85,7 +85,7 @@ export default class MovieDetailsPage extends Component {
           movieId={this.props.match.params.movieId}
           path={this.props.match.path}
           url={this.props.match.url}
-          from={this.props.location.state?.from}
+          from={this.props.location?.state?.from || routes.movies}
         />
       </>
     );
