@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import getQueryParams from '../utils/getQueryParams';
-import SearchBar from '../conponents/SearchBar/SearchBar';
-import { BASE_URL, KEY } from '../services/themoviedb-api';
-import Loader from 'react-loader-spinner';
-import MovieList from '../conponents//MovieList/MovieList';
+import SearchBar from '../components/SearchBar/SearchBar';
+import themoviedbAPI from '../services/themoviedb-api';
+import Spinner from '../components/Spinner/Spinner';
+import MovieList from '../components//MovieList/MovieList';
 
 export default class MoviePage extends Component {
   static propTypes = {};
@@ -15,6 +15,7 @@ export default class MoviePage extends Component {
   state = {
     movies: [],
     loading: false,
+    error: null,
   };
 
   componentDidMount() {
@@ -25,7 +26,7 @@ export default class MoviePage extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { query: prevQuery } = getQueryParams(prevProps.location.search);
     const { query: nextQuery } = getQueryParams(this.props.location.search);
 
@@ -37,15 +38,13 @@ export default class MoviePage extends Component {
   fetchMovies = query => {
     this.setState({ loading: true });
 
-    fetch(
-      `${BASE_URL}/3/search/movie?api_key=${KEY}&language=en-US&query=${query}&page=1&include_adult=false`,
-    )
-      .then(res => res.json())
-      .then(res => this.setState({ movies: res.results }))
-      .then(() => {
-        if (this.state.movies.length === 0) {
-          return toast.error('Ничего не найдено...');
+    themoviedbAPI
+      .fetchMoviesWithQuery(query)
+      .then(movies => {
+        if (movies.length === 0) {
+          toast.error('Ничего не найдено...');
         }
+        this.setState({ movies });
       })
       .catch(error => toast.error(error.message))
       .finally(() => this.setState({ loading: false }));
@@ -64,17 +63,8 @@ export default class MoviePage extends Component {
     return (
       <div className="MainContainer">
         <SearchBar onSubmit={this.handleChangeQuery} />
-        {loading && (
-          <Loader
-            type="Hearts"
-            color="palevioletred"
-            height={260}
-            width={260}
-            timeout={3000}
-          />
-        )}
 
-        {movies.length > 0 && <MovieList movies={movies} />}
+        {loading ? <Spinner /> : <MovieList movies={movies} />}
 
         <ToastContainer />
       </div>

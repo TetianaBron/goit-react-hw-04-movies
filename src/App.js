@@ -1,8 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import routes from './routes';
-import AppBar from './conponents/AppBar/AppBar';
-import Loader from 'react-loader-spinner';
+import AppBar from './components/AppBar/AppBar';
+import Spinner from './components/Spinner/Spinner';
 
 const HomePage = lazy(() =>
   import('./pages/HomePage.js' /* webpackChunkName: "home-page" */),
@@ -20,17 +20,7 @@ const App = () => (
   <>
     <AppBar />
 
-    <Suspense
-      fallback={
-        <Loader
-          type="Hearts"
-          color="palevioletred"
-          height={260}
-          width={260}
-          timeout={3000}
-        />
-      }
-    >
+    <Suspense fallback={<Spinner />}>
       <Switch>
         <Route exact path={routes.home} component={HomePage} />
         <Route path={routes.movieDetails} component={MovieDetailsPage} />

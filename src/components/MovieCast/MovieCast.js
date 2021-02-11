@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import themoviedbAPI from '../../services/themoviedb-api';
+import { toast } from 'react-toastify';
 import './MovieCast.scss';
 import Layout from '../Layout/Layout';
-import { KEY, BASE_URL, IMG_URL } from '../../services/themoviedb-api';
 
 export default class MovieCast extends Component {
   state = {
     cast: [],
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     const { movieId } = this.props.match.params;
 
-    const response = await Axios.get(
-      `${BASE_URL}/3/movie/${movieId}/credits?api_key=${KEY}&language=en-US`,
-    );
-
-    this.setState({ ...response.data });
+    themoviedbAPI
+      .fetchMovieCast(movieId)
+      .then(results => this.setState({ cast: results.cast }))
+      .catch(error => toast.error(error.message))
+      .finally(() => {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
+      });
   }
 
   render() {
@@ -31,8 +36,8 @@ export default class MovieCast extends Component {
                 <img
                   src={
                     profile_path
-                      ? `${IMG_URL}/w500/${profile_path}`
-                      : `${IMG_URL}/w500/wwemzKWzjKYJFfCeiB57q3r4Bcm.png`
+                      ? `${themoviedbAPI.IMG_URL}${profile_path}`
+                      : `${themoviedbAPI.defaultImage}`
                   }
                   alt={name}
                 />

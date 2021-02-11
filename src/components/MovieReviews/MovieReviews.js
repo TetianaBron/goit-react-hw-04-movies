@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import themoviedbAPI from '../../services/themoviedb-api';
+import { toast } from 'react-toastify';
 import Layout from '../Layout/Layout';
-import './MovieReviews.scss';
-import { BASE_URL, KEY } from '../../services/themoviedb-api';
 
 export default class MovieReview extends Component {
   state = {
@@ -12,11 +11,16 @@ export default class MovieReview extends Component {
   async componentDidMount() {
     const { movieId } = this.props.match.params;
 
-    const response = await Axios.get(
-      `${BASE_URL}/3/movie/${movieId}/reviews?api_key=${KEY}&language=en-US&page=1`,
-    );
-
-    this.setState({ reviews: response.data.results });
+    themoviedbAPI
+      .fetchMovieReviews(movieId)
+      .then(reviews => this.setState({ reviews }))
+      .catch(error => toast.error(error.message))
+      .finally(() => {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight,
+          behavior: 'smooth',
+        });
+      });
   }
 
   render() {
