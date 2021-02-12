@@ -45,16 +45,15 @@ const MovieCard = ({ movie }) => {
             </>
           )}
 
-          {genres && (
+          {genres.length > 0 && (
             <>
               <h2>Genres</h2>
               <ul className="Genres">
-                {genres.length > 0 &&
-                  genres.map(({ id, name }) => (
-                    <li key={id} className="GenresItem">
-                      {name}
-                    </li>
-                  ))}
+                {genres.map(({ id, name }) => (
+                  <li key={id} className="GenresItem">
+                    {name}
+                  </li>
+                ))}
               </ul>
             </>
           )}

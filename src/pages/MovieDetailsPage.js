@@ -8,7 +8,7 @@ import routes from '../routes';
 
 export default class MovieDetailsPage extends Component {
   state = {
-    movie: {},
+    movie: null,
     loading: false,
     error: null,
   };
@@ -21,7 +21,10 @@ export default class MovieDetailsPage extends Component {
     themoviedbAPI
       .fetchMovieDetails(movieId)
       .then(movie => this.setState({ movie }))
-      .catch(error => toast.error(error.message))
+      .catch(error => {
+        toast.error(error.message);
+        this.setState({ error: true });
+      })
       .finally(() => this.setState({ loading: false }));
   }
 
@@ -48,7 +51,7 @@ export default class MovieDetailsPage extends Component {
                 Back
               </button>
 
-              <MovieCard movie={movie} />
+              {this.state.movie && <MovieCard movie={movie} />}
             </div>
 
             <AdditionalInfoToCard

@@ -6,7 +6,7 @@ const MovieList = ({ movies, location }) => {
   return (
     <ul>
       {movies &&
-        movies.map(({ id, title }) => (
+        movies.map(({ id, title, name }) => (
           <li key={id}>
             <Link
               to={{
@@ -16,7 +16,7 @@ const MovieList = ({ movies, location }) => {
                 },
               }}
             >
-              {title}
+              {title || name}
             </Link>
           </li>
         ))}

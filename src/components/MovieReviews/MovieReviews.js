@@ -6,6 +6,7 @@ import Layout from '../Layout/Layout';
 export default class MovieReview extends Component {
   state = {
     reviews: [],
+    error: null,
   };
 
   async componentDidMount() {
@@ -14,7 +15,10 @@ export default class MovieReview extends Component {
     themoviedbAPI
       .fetchMovieReviews(movieId)
       .then(reviews => this.setState({ reviews }))
-      .catch(error => toast.error(error.message))
+      .catch(error => {
+        toast.error(error.message);
+        this.setState({ error: true });
+      })
       .finally(() => {
         window.scrollTo({
           top: document.documentElement.scrollHeight,

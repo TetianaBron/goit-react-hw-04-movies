@@ -46,7 +46,10 @@ export default class MoviePage extends Component {
         }
         this.setState({ movies });
       })
-      .catch(error => toast.error(error.message))
+      .catch(error => {
+        toast.error(error.message);
+        this.setState({ error: true });
+      })
       .finally(() => this.setState({ loading: false }));
   };
 

@@ -7,7 +7,10 @@ const defaultImage = `${IMG_URL}wwemzKWzjKYJFfCeiB57q3r4Bcm.png`;
 function fetchTrendingMovies() {
   return fetch(`${BASE_URL}trending/all/day?api_key=${KEY}`)
     .then(res => res.json())
-    .then(data => data.results);
+    .then(data => data.results)
+    .then(results =>
+      results.filter(movieArray => movieArray.media_type === 'movie'),
+    );
 }
 
 function fetchMoviesWithQuery(query) {
@@ -38,7 +41,7 @@ function fetchMovieReviews(movieId) {
     .then(data => data.results);
 }
 
-export default {
+const themoviedbAPI = {
   IMG_URL,
   defaultImage,
   fetchTrendingMovies,
@@ -47,3 +50,5 @@ export default {
   fetchMovieCast,
   fetchMovieReviews,
 };
+
+export default themoviedbAPI;

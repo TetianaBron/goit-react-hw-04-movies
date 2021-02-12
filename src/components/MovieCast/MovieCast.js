@@ -7,6 +7,7 @@ import Layout from '../Layout/Layout';
 export default class MovieCast extends Component {
   state = {
     cast: [],
+    error: null,
   };
 
   componentDidMount() {
@@ -15,7 +16,10 @@ export default class MovieCast extends Component {
     themoviedbAPI
       .fetchMovieCast(movieId)
       .then(results => this.setState({ cast: results.cast }))
-      .catch(error => toast.error(error.message))
+      .catch(error => {
+        toast.error(error.message);
+        this.setState({ error: true });
+      })
       .finally(() => {
         window.scrollTo({
           top: document.documentElement.scrollHeight,

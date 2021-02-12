@@ -16,8 +16,11 @@ export default class MoviesPage extends Component {
 
     themoviedbAPI
       .fetchTrendingMovies()
-      .then(results => this.setState({ movies: results }))
-      .catch(error => toast.error(error.message))
+      .then(movieArray => this.setState({ movies: movieArray }))
+      .catch(error => {
+        toast.error(error.message);
+        this.setState({ error: true });
+      })
       .finally(() => this.setState({ loading: false }));
   }
 
