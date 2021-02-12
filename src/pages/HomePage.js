@@ -19,7 +19,7 @@ export default class MoviesPage extends Component {
       .then(movieArray => this.setState({ movies: movieArray }))
       .catch(error => {
         toast.error(error.message);
-        this.setState({ error: true });
+        this.setState({ error: error.message });
       })
       .finally(() => this.setState({ loading: false }));
   }

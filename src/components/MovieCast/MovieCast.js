@@ -18,7 +18,7 @@ export default class MovieCast extends Component {
       .then(results => this.setState({ cast: results.cast }))
       .catch(error => {
         toast.error(error.message);
-        this.setState({ error: true });
+        this.setState({ error: error.message });
       })
       .finally(() => {
         window.scrollTo({

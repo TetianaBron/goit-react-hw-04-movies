@@ -17,7 +17,7 @@ export default class MovieReview extends Component {
       .then(reviews => this.setState({ reviews }))
       .catch(error => {
         toast.error(error.message);
-        this.setState({ error: true });
+        this.setState({ error: error.message });
       })
       .finally(() => {
         window.scrollTo({

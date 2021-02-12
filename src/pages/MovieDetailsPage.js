@@ -23,7 +23,7 @@ export default class MovieDetailsPage extends Component {
       .then(movie => this.setState({ movie }))
       .catch(error => {
         toast.error(error.message);
-        this.setState({ error: true });
+        this.setState({ error: error.message });
       })
       .finally(() => this.setState({ loading: false }));
   }

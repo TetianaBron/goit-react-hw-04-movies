@@ -10,6 +10,7 @@ const MovieCard = ({ movie }) => {
     overview,
     release_date,
     title,
+    name,
     vote_average,
   } = movie;
 
@@ -22,11 +23,11 @@ const MovieCard = ({ movie }) => {
               ? `${themoviedbAPI.IMG_URL}${backdrop_path}`
               : `${themoviedbAPI.defaultImage}`
           }
-          alt={title}
+          alt={title || name}
         />
 
         <div className="CardInfo">
-          <h1>{title}</h1>
+          <h1>{title || name}</h1>
           {vote_average > 0 && (
             <p>
               <span className="Title">User Score:</span> {vote_average * 10}%
