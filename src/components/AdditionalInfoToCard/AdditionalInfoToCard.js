@@ -8,34 +8,32 @@ import routes from '../../routes';
 
 const AdditionalInfoToCard = ({ path, url, from }) => {
   return (
-    <div>
-      <div className="Container">
-        <Layout>
-          <p className="Title">Additional information</p>
-          <ul>
-            <li>
-              <NavLink
-                to={{
-                  pathname: `${url}${routes.cast}`,
-                  state: { from },
-                }}
-              >
-                Cast
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to={{
-                  pathname: `${url}${routes.reviews}`,
-                  state: { from },
-                }}
-              >
-                Reviews
-              </NavLink>
-            </li>
-          </ul>
-        </Layout>
-      </div>
+    <div className="Container">
+      <Layout>
+        <p className="Title">Additional information</p>
+        <ul>
+          <li>
+            <NavLink
+              to={{
+                pathname: `${url}${routes.cast}`,
+                state: { from },
+              }}
+            >
+              Cast
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to={{
+                pathname: `${url}${routes.reviews}`,
+                state: { from },
+              }}
+            >
+              Reviews
+            </NavLink>
+          </li>
+        </ul>
+      </Layout>
 
       <Switch>
         <Route path={`${path}${routes.cast}`} component={MovieCast} />
